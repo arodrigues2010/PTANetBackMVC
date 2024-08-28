@@ -11,15 +11,16 @@ builder.WebHost.ConfigureKestrel(options =>
     options.ListenAnyIP(5001); // Se ejecuta Swagger 
 });
 
+
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configure HttpClient for FeeDataService
 builder.Services.AddHttpClient<FeeDataService>(client =>
-{
-    client.BaseAddress = new Uri("https://api.opendata.esett.com/");
-});
+ {});
+
+builder.Services.AddControllersWithViews();
 
 // Register scoped services
 builder.Services.AddScoped<FeeDataRepository>();

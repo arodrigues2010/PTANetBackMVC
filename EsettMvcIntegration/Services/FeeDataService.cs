@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Text.Json;
-using System.Threading.Tasks;
 using EsettMvcIntegration.Models;
 
 namespace EsettMvcIntegration.Services
@@ -19,7 +16,7 @@ namespace EsettMvcIntegration.Services
         {
             try
             {
-                var response = await _client.GetAsync("https://api.opendata.esett.com/EXP05/Fees");
+               var response = await _client.GetAsync("https://api.opendata.esett.com/EXP05/Fees");
                 response.EnsureSuccessStatusCode();
 
                 var jsonString = await response.Content.ReadAsStringAsync();
