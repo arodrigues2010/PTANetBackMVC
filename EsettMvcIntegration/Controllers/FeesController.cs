@@ -23,12 +23,16 @@ namespace EsettMvcIntegration.Controllers
         [ProducesResponseType(typeof(DialengaErrorDTO), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<FeeDataModel>>> GetAll()
         {
-            var result = await _repository.GetAllFeesAsync();
-            if (result.IsSuccess)
+            try
             {
-                return Ok(result.Value);
+                var fees = await _repository.GetAllFeesAsync();
+                return Ok(fees);
             }
-            return StatusCode(StatusCodes.Status500InternalServerError, new DialengaErrorDTO { Message = result.ErrorMessage });
+            catch (Exception ex)
+            {
+                // Log the exception (not shown here) and return a failure response.
+                return StatusCode(StatusCodes.Status500InternalServerError, new DialengaErrorDTO { Message = "An error occurred while retrieving the data." });
+            }
         }
 
         [HttpGet("{id}")]
@@ -37,16 +41,20 @@ namespace EsettMvcIntegration.Controllers
         [ProducesResponseType(typeof(DialengaErrorDTO), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<FeeDataModel>> GetById(int id)
         {
-            var result = await _repository.GetFeeByIdAsync(id);
-            if (result.IsSuccess)
+            try
             {
-                if (result.Value == null)
+                var fee = await _repository.GetFeeByIdAsync(id);
+                if (fee == null)
                 {
                     return NotFound(new DialengaErrorDTO { Message = "Fee not found." });
                 }
-                return Ok(result.Value);
+                return Ok(fee);
             }
-            return StatusCode(StatusCodes.Status500InternalServerError, new DialengaErrorDTO { Message = result.ErrorMessage });
+            catch (Exception ex)
+            {
+                // Log the exception (not shown here) and return a failure response.
+                return StatusCode(StatusCodes.Status500InternalServerError, new DialengaErrorDTO { Message = "An error occurred while retrieving the data." });
+            }
         }
 
         [HttpPost("fetch")]
@@ -59,12 +67,7 @@ namespace EsettMvcIntegration.Controllers
                 var fees = await _service.GetFeesAsync();
                 foreach (var fee in fees)
                 {
-                    var result = await _repository.AddFeeAsync(fee);
-                    if (!result.IsSuccess)
-                    {
-                        // Log the error (not shown here) and return a failure response.
-                        return StatusCode(StatusCodes.Status500InternalServerError, new DialengaErrorDTO { Message = result.ErrorMessage });
-                    }
+                    await _repository.AddFeeAsync(fee);
                 }
                 return Ok();
             }
@@ -76,4 +79,3 @@ namespace EsettMvcIntegration.Controllers
         }
     }
 }
-
