@@ -16,10 +16,10 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.Timestamp</td>
-            <td>@item.Country</td>
-            <td>@item.PeakLoadFee</td>
-            <td>@item.WeeklyFee</td>
+            <td>@item.feeAllDataModel.timestamp</td>
+            <td>@item.feeAllDataModel.country</td>
+            <td>@item.feeAllDataModel.peakLoadFee</td>
+            <td>@item.feeAllDataModel.weeklyFee</td>
             <td><a href="@Url.Action("Details", new { id = item.Id })">Details</a></td>
         </tr>
     }

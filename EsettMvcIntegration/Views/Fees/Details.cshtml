@@ -3,28 +3,28 @@
 <h2>Fee Details</h2>
 
 <div>
-    <h4>@Model.Country - @Model.Timestamp</h4>
+    <h4>@Model.feeAllDataModel.country - @Model.feeAllDataModel.timestamp</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             Imbalance Fee
         </dt>
         <dd class = "col-sm-10">
-            @Model.ImbalanceFee
+            @Model.feeAllDataModel.imbalanceFee
         </dd>
         <dt class = "col-sm-2">
             Hourly Imbalance Fee
         </dt>
         <dd class = "col-sm-10">
-            @Model.HourlyImbalanceFee
+            @Model.feeAllDataModel.hourlyImbalanceFee
         </dd>
         <dt class = "col-sm-2">
             Peak Load Fee
         </dt>
         <dd class = "col-sm-10">
-            @Model.PeakLoadFee
+            @Model.feeAllDataModel.peakLoadFee
         </dd>
-        <dt class = "col-sm-2">
+        @* <dt class = "col-sm-2">
             Volume Fee
         </dt>
         <dd class = "col-sm-10">
@@ -35,7 +35,7 @@
         </dt>
         <dd class = "col-sm-10">
             @Model.WeeklyFee
-        </dd>
+        </dd> *@
     </dl>
 </div>
 <div>
