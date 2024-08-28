@@ -85,10 +85,6 @@ namespace EsettMvcIntegration.Controllers
             try
             {
                 var fees = await _service.GetFeesAsync();
-                // foreach (var fee in fees)
-                // {
-                //     await _repository.AddFeeAsync(fee);
-                // }
                 return Ok(fees);
             }
             catch (Exception ex)
