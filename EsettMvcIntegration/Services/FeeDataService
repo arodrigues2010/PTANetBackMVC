@@ -1,18 +1,64 @@
-public class FeeDataService
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using EsettMvcIntegration.Models;
+
+namespace EsettMvcIntegration.Services
 {
-    private readonly HttpClient _httpClient;
-
-    public FeeDataService(HttpClient httpClient)
+    public class FeeDataRepository
     {
-        _httpClient = httpClient;
-    }
+        private readonly ApplicationDbContext _context;
 
-    public async Task<List<FeeDataModel>> GetFeesAsync()
-    {
-        var response = await _httpClient.GetAsync("https://api.opendata.esett.com/api/fees");
-        response.EnsureSuccessStatusCode();
+        public FeeDataRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-        var data = await response.Content.ReadFromJsonAsync<List<FeeDataModel>>();
-        return data;
+        public async Task<Result<List<FeeDataModel>>> GetAllFeesAsync()
+        {
+            try
+            {
+                var fees = await _context.Fees.ToListAsync();
+                return Result<List<FeeDataModel>>.Success(fees);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (not shown here) and return a failure result.
+                return Result<List<FeeDataModel>>.Failure("An error occurred while retrieving all fees.");
+            }
+        }
+
+        public async Task<Result<FeeDataModel>> GetFeeByIdAsync(int id)
+        {
+            try
+            {
+                var fee = await _context.Fees.FindAsync(id);
+                if (fee == null)
+                {
+                    return Result<FeeDataModel>.Failure("Fee not found.");
+                }
+                return Result<FeeDataModel>.Success(fee);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (not shown here) and return a failure result.
+                return Result<FeeDataModel>.Failure("An error occurred while retrieving the fee.");
+            }
+        }
+
+        public async Task<Result<bool>> AddFeeAsync(FeeDataModel fee)
+        {
+            try
+            {
+                _context.Fees.Add(fee);
+                await _context.SaveChangesAsync();
+                return Result<bool>.Success(true);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (not shown here) and return a failure result.
+                return Result<bool>.Failure("An error occurred while adding the fee.");
+            }
+        }
     }
 }

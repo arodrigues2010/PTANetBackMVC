@@ -6,6 +6,7 @@ namespace EsettMvcIntegration.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class FeesController : ControllerBase
     {
         private readonly FeeDataRepository _repository;
@@ -18,32 +19,61 @@ namespace EsettMvcIntegration.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(List<FeeDataModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(DialengaErrorDTO), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<FeeDataModel>>> GetAll()
         {
-            var fees = await _repository.GetAllFeesAsync();
-            return Ok(fees);
+            var result = await _repository.GetAllFeesAsync();
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError, new DialengaErrorDTO { Message = result.ErrorMessage });
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(FeeDataModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(DialengaErrorDTO), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(DialengaErrorDTO), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<FeeDataModel>> GetById(int id)
         {
-            var fee = await _repository.GetFeeByIdAsync(id);
-            if (fee == null)
+            var result = await _repository.GetFeeByIdAsync(id);
+            if (result.IsSuccess)
             {
-                return NotFound();
+                if (result.Value == null)
+                {
+                    return NotFound(new DialengaErrorDTO { Message = "Fee not found." });
+                }
+                return Ok(result.Value);
             }
-            return Ok(fee);
+            return StatusCode(StatusCodes.Status500InternalServerError, new DialengaErrorDTO { Message = result.ErrorMessage });
         }
 
         [HttpPost("fetch")]
+        [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(DialengaErrorDTO), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> FetchAndStoreFees()
         {
-            var fees = await _service.GetFeesAsync();
-            foreach (var fee in fees)
+            try
             {
-                await _repository.AddFeeAsync(fee);
+                var fees = await _service.GetFeesAsync();
+                foreach (var fee in fees)
+                {
+                    var result = await _repository.AddFeeAsync(fee);
+                    if (!result.IsSuccess)
+                    {
+                        // Log the error (not shown here) and return a failure response.
+                        return StatusCode(StatusCodes.Status500InternalServerError, new DialengaErrorDTO { Message = result.ErrorMessage });
+                    }
+                }
+                return Ok();
             }
-            return Ok();
+            catch (Exception ex)
+            {
+                // Log the exception (not shown here) and return a failure response.
+                return StatusCode(StatusCodes.Status500InternalServerError, new DialengaErrorDTO { Message = "An error occurred while processing your request." });
+            }
         }
     }
 }
+
