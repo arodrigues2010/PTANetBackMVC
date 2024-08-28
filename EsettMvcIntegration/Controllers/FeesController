@@ -1,0 +1,49 @@
+using Microsoft.AspNetCore.Mvc;
+using EsettMvcIntegration.Models;
+using EsettMvcIntegration.Services;
+
+namespace EsettMvcIntegration.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class FeesController : ControllerBase
+    {
+        private readonly FeeDataRepository _repository;
+        private readonly FeeDataService _service;
+
+        public FeesController(FeeDataRepository repository, FeeDataService service)
+        {
+            _repository = repository;
+            _service = service;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<FeeDataModel>>> GetAll()
+        {
+            var fees = await _repository.GetAllFeesAsync();
+            return Ok(fees);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<FeeDataModel>> GetById(int id)
+        {
+            var fee = await _repository.GetFeeByIdAsync(id);
+            if (fee == null)
+            {
+                return NotFound();
+            }
+            return Ok(fee);
+        }
+
+        [HttpPost("fetch")]
+        public async Task<IActionResult> FetchAndStoreFees()
+        {
+            var fees = await _service.GetFeesAsync();
+            foreach (var fee in fees)
+            {
+                await _repository.AddFeeAsync(fee);
+            }
+            return Ok();
+        }
+    }
+}

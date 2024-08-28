@@ -1,0 +1,25 @@
+public class FeeDataRepository
+{
+    private readonly EsettDbContext _context;
+
+    public FeeDataRepository(EsettDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task AddFeeAsync(FeeDataModel fee)
+    {
+        _context.FeeData.Add(fee);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<FeeDataModel> GetFeeByIdAsync(int id)
+    {
+        return await _context.FeeData.FindAsync(id);
+    }
+
+    public async Task<List<FeeDataModel>> GetAllFeesAsync()
+    {
+        return await _context.FeeData.ToListAsync();
+    }
+}

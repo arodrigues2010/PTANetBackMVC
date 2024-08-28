@@ -1,0 +1,18 @@
+public class FeeDataService
+{
+    private readonly HttpClient _httpClient;
+
+    public FeeDataService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
+    public async Task<List<FeeDataModel>> GetFeesAsync()
+    {
+        var response = await _httpClient.GetAsync("https://api.opendata.esett.com/api/fees");
+        response.EnsureSuccessStatusCode();
+
+        var data = await response.Content.ReadFromJsonAsync<List<FeeDataModel>>();
+        return data;
+    }
+}
