@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EsettMvcIntegration")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+edd99ade44bd33e0164cfbe747f97fab208f00ee")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6630f4757ec4df45247d9d5fff406191cf935061")]
 [assembly: System.Reflection.AssemblyProductAttribute("EsettMvcIntegration")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EsettMvcIntegration")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
