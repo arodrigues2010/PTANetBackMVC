@@ -6,10 +6,10 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Kestrel to listen on a specific port (e.g., 5001)
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(5001); // Se ejecuta Swagger 
-});
+// builder.WebHost.ConfigureKestrel(options =>
+// {
+//     options.ListenAnyIP(5001); // Se ejecuta Swagger 
+// });
 
 
 // Add services to the container.
