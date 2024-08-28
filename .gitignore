@@ -1,0 +1,88 @@
+# .NET Core & .NET Framework specific
+*.dll
+*.exe
+*.pdb
+*.log
+*.db
+*.bak
+
+# ASP.NET specific
+wwwroot/
+node_modules/
+*.vs/
+.vscode/
+
+# Project files
+*.csproj.user
+*.csproj.filters
+*.suo
+*.user
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]eleases/
+[Ll]ogs/
+[Ll]og/
+*.dmp
+*.tlog
+*.tgz
+*.tar.gz
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Rider IDE
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# JetBrains Rider
+.idea/
+
+# User-specific files
+*.userosscache
+*.suo
+*.user
+
+# Local environment variables
+.env
+
+# NuGet packages
+*.nupkg
+*.snupkg
+*.nuspec
+
+# Microsoft Azure Web Apps
+*.publishsettings
+
+# Docker files
+docker-compose.override.yml
+.dockerignore
+
+# Coverage results
+coverage/
+
+# Backup files
+*.bak
+
+# Temporary files
+*.tmp
+
+# Ignore Visual Studio temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# Ignore other IDE files
+.vscode/
+.idea/
