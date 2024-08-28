@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Alicunde\\PTANetBackMVC\\EsettMvcIntegration\\EsettMvcIntegration.csproj": {}
+    "D:\\Alicunde\\PTANetBackMVC\\EsettMvcIntegration\\EsettMvcIntegration.csproj": {}
   },
   "projects": {
-    "d:\\Alicunde\\PTANetBackMVC\\EsettMvcIntegration\\EsettMvcIntegration.csproj": {
+    "D:\\Alicunde\\PTANetBackMVC\\EsettMvcIntegration\\EsettMvcIntegration.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Alicunde\\PTANetBackMVC\\EsettMvcIntegration\\EsettMvcIntegration.csproj",
+        "projectUniqueName": "D:\\Alicunde\\PTANetBackMVC\\EsettMvcIntegration\\EsettMvcIntegration.csproj",
         "projectName": "EsettMvcIntegration",
-        "projectPath": "d:\\Alicunde\\PTANetBackMVC\\EsettMvcIntegration\\EsettMvcIntegration.csproj",
+        "projectPath": "D:\\Alicunde\\PTANetBackMVC\\EsettMvcIntegration\\EsettMvcIntegration.csproj",
         "packagesPath": "C:\\Users\\arodr\\.nuget\\packages\\",
-        "outputPath": "d:\\Alicunde\\PTANetBackMVC\\EsettMvcIntegration\\obj\\",
+        "outputPath": "D:\\Alicunde\\PTANetBackMVC\\EsettMvcIntegration\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
